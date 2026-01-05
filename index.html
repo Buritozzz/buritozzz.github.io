@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World Stylisé</title>
+    <title>Le Monde.fr - Actualités et Infos en France et dans le monde - Flux RSS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Style global */
+        /* Variables CSS */
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+        
+        /* Reset et styles globaux */
         * {
             margin: 0;
             padding: 0;
@@ -13,141 +27,362 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark-color);
+            line-height: 1.6;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #333;
             padding: 20px;
         }
         
-        /* Conteneur principal */
         .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* En-tête */
+        .header {
             text-align: center;
-            padding: 40px;
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            width: 100%;
-            transition: transform 0.3s ease;
+            margin-bottom: 40px;
+            padding: 40px 0;
         }
         
-        .container:hover {
-            transform: translateY(-5px);
-        }
-        
-        /* Style du texte principal */
-        .hello-world {
-            font-size: 5rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #ff7e5f, #feb47b, #86a8e7, #91eae4);
+        .header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 20px;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
-            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 800;
         }
         
-        /* Sous-titre */
-        .subtitle {
-            font-size: 1.5rem;
-            color: #666;
-            margin-bottom: 40px;
-            font-weight: 300;
+        .header p {
+            font-size: 1.2rem;
+            color: var(--gray-color);
+            max-width: 600px;
+            margin: 0 auto 25px;
         }
         
-        /* Décorations */
-        .decoration {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
-        }
-        
-        .dot {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
+        .rss-icon {
+            font-size: 2rem;
+            color: #ff6600;
+            margin-bottom: 15px;
             animation: pulse 2s infinite;
         }
         
-        .dot:nth-child(1) {
-            background-color: #ff7e5f;
-            animation-delay: 0s;
-        }
-        
-        .dot:nth-child(2) {
-            background-color: #feb47b;
-            animation-delay: 0.2s;
-        }
-        
-        .dot:nth-child(3) {
-            background-color: #86a8e7;
-            animation-delay: 0.4s;
-        }
-        
-        .dot:nth-child(4) {
-            background-color: #91eae4;
-            animation-delay: 0.6s;
-        }
-        
-        /* Animation des points */
         @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 0.7;
-            }
-            50% {
-                transform: scale(1.3);
-                opacity: 1;
-            }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Section des articles */
+        .articles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .article-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .article-header {
+            padding: 25px 25px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .article-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .article-title a {
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .article-title a:hover {
+            color: var(--primary-color);
+        }
+        
+        .article-date {
+            font-size: 0.9rem;
+            color: var(--gray-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .article-date i {
+            color: var(--accent-color);
+        }
+        
+        .article-content {
+            padding: 20px 25px;
+            flex-grow: 1;
+        }
+        
+        .article-description {
+            color: #555;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .read-more:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        /* Pied de page */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid #eaeaea;
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+        
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .update-info {
+            background: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
-            .hello-world {
-                font-size: 3.5rem;
+            .articles-container {
+                grid-template-columns: 1fr;
             }
             
-            .subtitle {
-                font-size: 1.2rem;
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
             }
         }
         
         @media (max-width: 480px) {
-            .hello-world {
-                font-size: 2.5rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
+            body {
+                padding: 10px;
             }
             
             .container {
-                padding: 25px 20px;
+                padding: 0 10px;
+            }
+            
+            .header {
+                padding: 20px 0;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .article-header,
+            .article-content {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="hello-world">Hello World</h1>
-        <p class="subtitle">Une simple page HTML avec un peu de style CSS</p>
+        <header class="header">
+            <div class="rss-icon">
+                <i class="fas fa-rss"></i>
+            </div>
+            <h1>Le Monde.fr - Actualités et Infos en France et dans le monde</h1>
+            <p>Le Monde.fr - 1er site d’information. Les articles du journal et toute l’actualité en continu : International, France, Société, Economie, Culture, Environnement, Blogs ...</p>
+            <div class="update-info">
+                <i class="fas fa-sync-alt"></i>
+                <span>Dernière mise à jour : 05/01/2026 à 12:00</span>
+            </div>
+        </header>
         
-        <div class="decoration">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
+        <main>
+            <h2 style="margin-bottom: 25px; font-size: 1.8rem; color: var(--dark-color);">
+                <i class="fas fa-newspaper" style="margin-right: 10px; color: var(--primary-color);"></i>
+                Les 5 derniers articles
+            </h2>
+            
+            <div class="articles-container">
+
+                <article class="article-card">
+                    <div class="article-header">
+                        <h3 class="article-title">
+                            <a href="https://www.lemonde.fr/international/live/2026/01/05/en-direct-enlevement-de-nicolas-maduro-la-presidente-par-interim-appelle-a-la-cooperation-avec-les-etats-unis-deux-jours-apres-l-enlevement-de-nicolas-maduro_6660411_3210.html" target="_blank">EN DIRECT, Venezuela : Emmanuel Macron critique finalement la « méthode employée » pour renverser Nicolas Maduro, « ni soutenue ni approuvée » par la France</a>
+                        </h3>
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Publié le 05/01/2026 08:52</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-content">
+                        <p class="article-description">Le chef de l’Etat a aussi dit, lundi en conseil des ministres, que le dirigeant vénézuélien était « un dictateur » et que son départ était « une bonne nouvelle pour les Vénézuéliens ». Il avait été cr...</p>
+                        <a href="https://www.lemonde.fr/international/live/2026/01/05/en-direct-enlevement-de-nicolas-maduro-la-presidente-par-interim-appelle-a-la-cooperation-avec-les-etats-unis-deux-jours-apres-l-enlevement-de-nicolas-maduro_6660411_3210.html" class="read-more" target="_blank">
+                            <span>Lire l'article</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-header">
+                        <h3 class="article-title">
+                            <a href="https://www.lemonde.fr/international/article/2026/01/05/enlevement-de-nicolas-maduro-ce-que-contient-l-acte-d-accusation-de-la-justice-americaine_6660600_3210.html" target="_blank">Venezuela : ce que contient l’acte d’accusation de la justice américaine contre Nicolas Maduro</a>
+                        </h3>
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Publié le 05/01/2026 10:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-content">
+                        <p class="article-description">Accusé de « conspiration narcoterroriste » dans un document publié samedi, le président du Venezuela risque la prison à perpétuité, mais l’implication réelle de l’Etat vénézuélien dans le trafic de dr...</p>
+                        <a href="https://www.lemonde.fr/international/article/2026/01/05/enlevement-de-nicolas-maduro-ce-que-contient-l-acte-d-accusation-de-la-justice-americaine_6660600_3210.html" class="read-more" target="_blank">
+                            <span>Lire l'article</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-header">
+                        <h3 class="article-title">
+                            <a href="https://www.lemonde.fr/politique/article/2026/01/05/les-silences-du-president-francais-sur-le-venezuela-risquent-de-sonner-comme-un-aveu-d-impuissance_6660589_823448.html" target="_blank">« Les silences d’Emmanuel Macron sur le Venezuela risquent de sonner comme un aveu d’impuissance »</a>
+                        </h3>
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Publié le 05/01/2026 09:05</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-content">
+                        <p class="article-description">La réaction du chef de l’Etat à propos de l’enlèvement de Nicolas Maduro, qui ne dit pas un mot des modalités de l’intervention américaine, semble acter une rupture avec la tradition diplomatique fran...</p>
+                        <a href="https://www.lemonde.fr/politique/article/2026/01/05/les-silences-du-president-francais-sur-le-venezuela-risquent-de-sonner-comme-un-aveu-d-impuissance_6660589_823448.html" class="read-more" target="_blank">
+                            <span>Lire l'article</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-header">
+                        <h3 class="article-title">
+                            <a href="https://www.lemonde.fr/international/article/2026/01/05/ca-suffit-reagit-le-groenland-face-aux-menaces-de-donald-trump-les-messages-de-soutien-se-multiplient-en-europe_6660595_3210.html" target="_blank">Groenland : après les nouvelles menaces de Donald Trump, les messages de soutien se multiplient en Europe</a>
+                        </h3>
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Publié le 05/01/2026 09:43</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-content">
+                        <p class="article-description">France, Suède, Norvège, Finlande… Les messages de soutien au Danemark de la communauté internationale se multiplient après les nouvelles menaces du président américain de « s’occuper » de l’île arctiq...</p>
+                        <a href="https://www.lemonde.fr/international/article/2026/01/05/ca-suffit-reagit-le-groenland-face-aux-menaces-de-donald-trump-les-messages-de-soutien-se-multiplient-en-europe_6660595_3210.html" class="read-more" target="_blank">
+                            <span>Lire l'article</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-header">
+                        <h3 class="article-title">
+                            <a href="https://www.lemonde.fr/international/article/2026/01/05/a-madrid-pour-les-opposants-venezueliens-faire-tomber-maduro-ne-suffira-pas-a-resoudre-la-situation_6660591_3210.html" target="_blank">Venezuela : les espoirs et les doutes d’opposants en Espagne, pour qui « faire tomber Maduro ne suffira pas à résoudre la situation »</a>
+                        </h3>
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Publié le 05/01/2026 09:27</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-content">
+                        <p class="article-description">De nombreux opposants ont trouvé refuge en Espagne, dont Edmundo Gonzalez Urrutia, le candidat officiellement battu à l’élection présidentielle de 2024. Ils ont été désagréablement surpris par le refu...</p>
+                        <a href="https://www.lemonde.fr/international/article/2026/01/05/a-madrid-pour-les-opposants-venezueliens-faire-tomber-maduro-ne-suffira-pas-a-resoudre-la-situation_6660591_3210.html" class="read-more" target="_blank">
+                            <span>Lire l'article</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </main>
         
-        <p style="color: #888; font-size: 0.9rem; margin-top: 30px;">
-            Cette page utilise des dégradés, des ombres, des animations et est responsive.
-        </p>
+        <footer class="footer">
+            <p>Page générée automatiquement à partir du flux RSS : <a href="https://www.lemonde.fr/rss/une.xml" target="_blank">Le Monde.fr - Actualités et Infos en France et dans le monde</a></p>
+            <p style="margin-top: 10px;">© 2026 - Lecteur RSS</p>
+        </footer>
     </div>
+    
+    <script>
+        // Animation au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.article-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
 </body>
 </html>
